@@ -92,12 +92,12 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-     Node n = first;
-     int count = 0;
+        Node n = first;
+        int count = 0;
         while (n.next != null) {
             n = n.next;
             count++;
-            if(index==count){
+            if (index == count) {
                 return n.item;
             }
         }
@@ -109,7 +109,29 @@ public class LinkedListDeque<T> {
         return first.item;
     }
 
+    public boolean insertAfter(T key, T d) {
+        Node current = first; // we start from the beginning of the list
+        while (current.item != key) { // as long as we have not found the key in a particular node
+            current = current.next;
+            if (current == null) {
+                return false;
+            }
+        }
+        Node n = new Node(d);
 
+        if (current == last) {
+            current.next = null;
+            last = n;
+        } else {
+            n.next = current.next;
+
+            current.next.prev = n;
+        }
+        n.prev = current;
+        current.next=n;
+        return true;
+    }
+    
     public int size() {
         return size;
 
@@ -126,4 +148,5 @@ public class LinkedListDeque<T> {
         System.out.println();
     }
 }
+
 
